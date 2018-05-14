@@ -1,8 +1,8 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 
-entity uart is
+entity uart_tb is
     port ( 
         clk  : in std_logic;
         btnC : in std_logic;
@@ -11,11 +11,11 @@ entity uart is
     );
 end entity;
 
-architecture behavioral of uart is
+architecture behavioral of uart_tb is
 
 	constant baud_rate : integer := 115200;
 
-    component uart_rx
+    component uart
         generic (baud_rate : integer := baud_rate);
         port (
             clk      : in std_logic; -- input clock
@@ -39,7 +39,7 @@ begin
     led(13 downto 8) <= (others => '0'); -- don't use
     led(7 downto 0) <= rx_data when rx_valid = '1' and rst_n = '1';
 
-    rx : uart_rx
+    uart1 : uart
         generic map (baud_rate => baud_rate)
         port map (
             clk      => clk,
