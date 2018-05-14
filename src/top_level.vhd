@@ -30,7 +30,7 @@ architecture behavior of top_level is
     constant BITWIDTH : integer := 8;
 
     -- Receives the incoming serial data
-    component uart_rx is
+    component uart is
         generic ( baud_rate : integer := BAUD_RATE );
         port (
             clk      : in std_logic; -- input clock
@@ -42,12 +42,12 @@ architecture behavior of top_level is
     end component;
 
     -- FIFO Memory Module that stores incoming serial data
-    component Pixel_Generation_v2 is
+    component pixel_generation is
         generic (
-            bit_depth     : positive := BITWIDTH;
-            rows          : positive := IMAGE_WIDTH;
-            cols          : positive := IMAGE_WIDTH;
-            count_size    : positive := 4
+            BIT_DEPTH     : positive := BITWIDTH;
+            ROWS          : positive := IMAGE_WIDTH;
+            COLS          : positive := IMAGE_WIDTH;
+            COUNT_SIZE    : positive := 4
         );
         port (
             clk             : in std_logic;
@@ -209,7 +209,7 @@ begin
     LED(14) <= rst_n;
     LED(15) <= '1';
 
-    serial_in : uart_rx
+    serial_in : uart
         generic map (baud_rate => BAUD_RATE)--115200)
         port map (
             clk      => clka,
@@ -254,7 +254,7 @@ begin
         end case;
    end process;
     
-    pixel_data : Pixel_Generation_v2
+    pixel_data : pixel_generation
 --        generic map (
 --            bit_depth  => 8,
 --            rows       => 512,
