@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity uart_rx is
+entity uart is
     generic (baud_rate : integer := 115200);
     port (
         clk      : in std_logic; -- input clock
@@ -13,7 +13,7 @@ entity uart_rx is
     );
 end entity;
 
-architecture uart_rx_arch of uart_rx is
+architecture uart_arch of uart is
     -- System clock frequency
     constant f_clk       : integer := 100000000;
     -- Oversample by this amount (e.g. 4 samples per bit)
